@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hd_team_view_form" model="ir.ui.view">
+        <field name="name">hd.team.view.form</field>
+        <field name="model">hd.team</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="name" />
+                        <field name="team_manager" />
+                    </group>
+                    <!-- <notebook>
+                        <page string="Team Memeber">
+                            <field name="member_ids" />
+                        </page>
+                    </notebook> -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hd_team_view_tree" model="ir.ui.view">
+        <field name="name">hd.team.view.tree</field>
+        <field name="model">hd.team</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="hd_team_action" model="ir.actions.act_window">
+        <field name="name">Teams</field>
+        <field name="res_model">hd.team</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem
+        id="help_desk_menu"
+        name="Help Desk"
+        />
+        
+    <menuitem
+        id="configuration_menu"
+        name="Configuration"
+        parent="help_desk_menu"
+        groups="help_desk.help_desk_manager"
+        sequence="10"/>
+
+    <menuitem
+        id="teams_menu"
+        name="Teams"
+        action="hd_team_action"
+        parent="configuration_menu"
+        sequence="1"/>
+
+    <!-- <menuitem
+        id="hd_team_menu"
+        name="name"
+        action="action_id"
+        groups="groups_id"
+        parent="parent_id"
+        sequence="10"/> -->
+
+</odoo>

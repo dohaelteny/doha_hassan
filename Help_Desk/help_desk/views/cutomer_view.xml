@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="help_desk_customer_inherit_module_name" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="get_tickets">
+                    <!-- <i class="bi bi-ticket"></i> -->
+                    <field string="Tickets" name="count_ticket" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <menuitem id="menu_help_desk_customer" 
+        name="Customers" 
+        action="account.res_partner_action_customer" 
+        parent="help_desk.help_desk_menu"
+        sequence="2"/>
+</odoo>

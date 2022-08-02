@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.module.category" id="help_desk_category_module">
+        <field name="name">Tickteing Help Desk</field>
+        <field name="sequence">3</field>
+    </record>
+    <record id="help_desk_manager" model="res.groups">
+        <field name="name">Help Desk Manager</field>
+        <field name="category_id" ref="help_desk.help_desk_category_module"/>
+        <!-- <field name="implied_ids" eval="[(4, ref('group_account_invoice')), (4, ref('group_account_readonly'))]"/> -->
+    </record>
+    <record id="help_desk_leader" model="res.groups">
+        <field name="name">Help Desk Team Leader</field>
+        <field name="category_id" ref="help_desk.help_desk_category_module"/>
+        <!-- <field name="implied_ids" eval="[(4, ref('group_account_invoice')), (4, ref('group_account_readonly'))]"/> -->
+    </record>
+    <record id="help_desk_engineer" model="res.groups">
+        <field name="name">Help Desk Engineer</field>
+        <field name="category_id" ref="help_desk.help_desk_category_module"/>
+        <!-- <field name="implied_ids" eval="[(4, ref('group_account_invoice')), (4, ref('group_account_readonly'))]"/> -->
+    </record>
+
+    <!-- record rule  -->
+
+    <record id="help_desk_engineer_rule" model="ir.rule">
+        <field name="name">Help Desk Engineer Rule</field>
+        <field name="model_id" ref="help_desk.model_hd_ticket"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('help_desk.help_desk_engineer'))]"/>
+    </record>
+    <record id="help_desk_leader_rule" model="ir.rule">
+        <field name="name">Help Desk Engineer Rule</field>
+        <field name="model_id" ref="help_desk.model_hd_ticket"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('help_desk.help_desk_leader'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hd_ticket_view_form" model="ir.ui.view">
+        <field name="name">hd.ticket.view.form</field>
+        <field name="model">hd.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="confirm" name="action_progress" type="object" class="oe_highlight" states="new"/>
+                    <button string="Approve" name="action_solve" type="object" class="oe_highlight" states="in_progress"/>
+                    <button string="Cancel" name="action_cancel" type="object" class="oe_highlight" states="in_progress,solved"/>
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="ticket_seq"/>
+                        <h1>
+                            <field name="ticket_seq" />
+                        </h1>
+                    </div>
+                    <group>
+
+                        <group>
+                            <field name="name" attrs="{'readonly':[('state','in',['cancelled','solved'])]}"/>
+                            <field name="checkin_time" attrs="{'readonly':[('state','in',['cancelled','solved'])]}" groups="help_desk.help_desk_manager,help_desk.help_desk_leader"/>
+                            <field name="resolution_time" />
+                            <field name="today" invisible="1" />
+                            <field name="priority" attrs="{'readonly':[('state','in',['cancelled','solved'])]}"/>
+                        </group>
+                        <group>
+                            <field name="team_id" attrs="{'readonly':[('state','in',['cancelled','solved'])]}"/>
+                            <field name="user_id" attrs="{'readonly':[('state','in',['cancelled','solved'])]}"/>
+                            <field name="hosting_type" attrs="{'readonly':[('state','in',['cancelled','solved'])]}"/>
+                            <field name="tags" />
+                        </group>
+                    </group>
+                    <group col="4">
+                        <field name="customer_id" domain="[('customer_rank','=',1)]"/>
+                        <field name="customer_name" />
+                        <field name="customer_email" />
+                        <field name="customer_phone" />
+                    </group>
+                    <notebook>
+                        <page string="Description of Issue">
+                            <field name="descrption" attrs="{'readonly':[('state','in',['cancelled','solved'])]}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hd_ticket_view_tree" model="ir.ui.view">
+        <field name="name">hd.ticket.view.tree</field>
+        <field name="model">hd.ticket</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ticket_seq" />
+                <field name="name" />
+                <field name="checkin_time" />
+                <field name="priority" />
+                <field name="team_id" />
+                <field name="user_id" />
+                <field name="hosting_type" />
+                <field name="customer_name" />
+                <field name="customer_email" />
+                <field name="customer_phone" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+    <record id="all_hd_ticket_action" model="ir.actions.act_window">
+        <field name="name">All Tickets</field>
+        <field name="res_model">hd.ticket</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[(1,'=',1)]</field>
+        <field name="context">{}</field>
+    </record>
+    <record id="my_hd_ticket_action" model="ir.actions.act_window">
+        <field name="name">My Tickets</field>
+        <field name="res_model">hd.ticket</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id','=',uid)]</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem
+        id="tikcet_menu"
+        name="Tickets"
+        parent="help_desk.help_desk_menu"
+        sequence="1"/>
+
+    <menuitem
+        id="all_ticket_menu"
+        name="All Tickets"
+        action="all_hd_ticket_action"
+        parent="tikcet_menu"
+        sequence="1"/>
+
+    <menuitem
+        id="my_ticket_menu"
+        name="My Tickets"
+        action="my_hd_ticket_action"
+        parent="tikcet_menu"
+        sequence="2"/>
+
+
+</odoo>

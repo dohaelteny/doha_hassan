@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ticket_per_team_wizard_view_form" model="ir.ui.view">
+        <field name="name">ticket.per.team.wizard.view.form</field>
+        <field name="model">ticket.per.team.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="team_id" />
+                            <field name="state" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="PDF" name="print_pdf" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="model_name_action" model="ir.actions.act_window">
+        <field name="name">Ticket Per Team Wizard</field>
+        <field name="res_model">ticket.per.team.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        id="reporting_menu"
+        name="Reporting"
+        parent="help_desk.help_desk_menu"
+        sequence="4"/>
+
+    <menuitem
+        id="ticket_per_team_menu"
+        name="Ticket Per Team Wizard"
+        action="model_name_action"
+        parent="reporting_menu"
+        sequence="10"/>
+
+</odoo>
